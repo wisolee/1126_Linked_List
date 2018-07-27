@@ -20,7 +20,7 @@
 
 CPP = g++ -g -O0 -Wall -Wextra-std=gnu++14
 
-MODULES = linked_list
+MODULES = linked_list node
 HDSRC = ${MODULES:=.h}
 CPPSRC = ${MODULES:=.cpp} main.cpp
 OBJECTS = ${CPPSRC:.cpp=.o}
