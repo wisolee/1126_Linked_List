@@ -21,12 +21,20 @@ int main(int argc, const char* argv[])
     std::cout << "length: " << list_1->get_length() << std::endl;
 
     // pop_back()
-    for (int i = 0; i < 9; i++) {
+    while (!list->is_empty()) {
+        list->print_list();
         list->pop_back();
     }
     list->print_list();
+
+    // pop_front() 
+    while (!list_1->is_empty()) {
+        list_1->print_list();
+        list_1->pop_front();
+    }
+    list->print_list();
    
-    // Deallocating a linked list
+    // Deallocating linked list
     list->~linked_list();
     list_1->~linked_list();
     return 0;

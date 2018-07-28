@@ -22,6 +22,7 @@ class linked_list {
 
         // Access member methods
         int get_length();
+        bool is_empty();
         
         // Manipulator member methods
         void append(int data);
