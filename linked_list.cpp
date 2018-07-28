@@ -50,7 +50,7 @@ void linked_list::append(int data) {
     return;
 }
 
-// Preprends at item to the list
+// Preprends an item to the list
 void linked_list::prepend(int data) {
     if (head == nullptr) {
         head = new node(data);
@@ -61,6 +61,60 @@ void linked_list::prepend(int data) {
     }
     // Increment length
     this->length++;
+
+    return;
+}
+
+// Inserts an item before another containing specified value
+void linked_list::insert(int data, int next_data) {
+    if (this->head == nullptr) return;  // Case 1: list is empty
+
+    node* inserted_node = nullptr;
+    if (this->length == 1) {            // Case 2: list contains one item
+        if (head->data == next_data) {
+            inserted_node = new node(data);
+            inserted_node->next = this->head;
+            this->head = inserted_node;
+            
+            // Increment length
+            this->length++;
+        }
+    } else {                            // Case 3: list contains two or more items
+        node* curr_node = head;
+        node* next_node = curr_node->next;
+        while (next_data != next_node->data) {
+            curr_node = curr_node->next;
+            next_node = curr_node->next;
+        }
+        inserted_node = new node(data);
+        curr_node->next = inserted_node;
+        inserted_node->next = next_node;
+        
+        // Increment length
+        this->length++;
+    }
+
+    return;
+}
+
+// Removes item storing that data
+void linked_list::remove(int data) {
+    // Case 1: list is empty
+    if (head == nullptr) return; 
+    
+    // Case 2: list has one or more items
+    node* prev_node = nullptr;
+    node* curr_node = head;
+    while (curr_node->data != data) {
+        prev_node = curr_node;
+        curr_node = curr_node->next;
+    }
+    prev_node->next = curr_node->next;
+    delete curr_node;
+    curr_node = nullptr;
+
+    // Decrement length
+    this->length--;
 
     return;
 }
@@ -76,11 +130,11 @@ int linked_list::pop_back() {
         popped_node = head;
         popped_data = popped_node->data;
         this->head = nullptr;
-    } else if (this->length == 2) {         // Case 2: list has two nodes
+    } else if (this->length == 2) {         // Case 3: list has two nodes
         popped_node = head->next;
         popped_data = popped_node->data;
         this->head->next = nullptr;
-    } else {                                // Case 2: list has three or more nodes
+    } else {                                // Case 4: list has three or more nodes
         node* curr_node = this->head;
         while (curr_node->next->next != nullptr) {
             curr_node = curr_node->next;
@@ -92,6 +146,7 @@ int linked_list::pop_back() {
     // Deallocate popped_node
     delete popped_node;
     popped_node = nullptr;
+
     // Decrement length
     this->length--;
 
@@ -118,6 +173,29 @@ int linked_list::pop_front() {
     return popped_data;
 }
 
+void linked_list::reverse() {
+    // Case 1: list is empty
+    if (head == nullptr) return;
+    
+    // Case 2: list has one item
+    if (this->length == 1) return;
+
+    // Case 2: list has two or more items
+    node* prev_node = nullptr;
+    node* curr_node = head;
+    node* next_node = nullptr;
+
+    while (curr_node != nullptr) {
+        next_node = curr_node->next;
+
+        curr_node->next = prev_node;
+        prev_node = curr_node;
+        curr_node = next_node;
+    }
+    head = prev_node;
+    return;
+}
+
 // Prints the contents of the list
 void linked_list::print_list() {
     // print message for empty list
@@ -125,7 +203,6 @@ void linked_list::print_list() {
         std::cout << "list is empty\n";
         return; 
     }
-
     // print contents of list if not empty
     node* itor = head;
     while (itor != nullptr) {

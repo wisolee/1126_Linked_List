@@ -5,7 +5,6 @@
 
 int main(int argc, const char* argv[])
 {
-    std::cout << "Working on linked_list" << std::endl;
     // Allocating a linked list on heap memory
     linked_list* list = new linked_list();
     linked_list* list_1 = new linked_list();
@@ -20,16 +19,24 @@ int main(int argc, const char* argv[])
     list_1->print_list();
     std::cout << "length: " << list_1->get_length() << std::endl;
 
+    std::cout << "Reversed list: \n";
+    list->reverse();
+    list->print_list();
+
+    list->insert(5, 7);
+    list->print_list();
+
+    list->remove(5);
+    list->print_list();
+
     // pop_back()
     while (!list->is_empty()) {
-        list->print_list();
         list->pop_back();
     }
     list->print_list();
 
     // pop_front() 
     while (!list_1->is_empty()) {
-        list_1->print_list();
         list_1->pop_front();
     }
     list->print_list();

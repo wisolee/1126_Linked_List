@@ -27,9 +27,13 @@ class linked_list {
         // Manipulator member methods
         void append(int data);
         void prepend(int data);
+        void insert(int data, int next_data);
 
         int pop_back();
         int pop_front();
+        void remove(int data);
+
+        void reverse();
 
         // Output display member methods
         void print_list();
