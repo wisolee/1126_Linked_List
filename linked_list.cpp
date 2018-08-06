@@ -101,17 +101,25 @@ void linked_list::insert(int data, int next_data) {
 void linked_list::remove(int data) {
     // Case 1: list is empty
     if (head == nullptr) return; 
-    
-    // Case 2: list has one or more items
-    node* prev_node = nullptr;
-    node* curr_node = head;
-    while (curr_node->data != data) {
-        prev_node = curr_node;
-        curr_node = curr_node->next;
+
+    // Case 2: list has one item (head)
+    if (this->get_length() == 1) {
+        node* curr_node = head;
+        delete curr_node;
+        head = nullptr;
+        curr_node = nullptr;
+    } else {
+        // Case 3: list has more than one item
+        node* prev_node = nullptr;
+        node* curr_node = head;
+        while (curr_node->data != data) {
+            prev_node = curr_node;
+            curr_node = curr_node->next;
+        }
+        prev_node->next = curr_node->next;
+        delete curr_node;
+        curr_node = nullptr;
     }
-    prev_node->next = curr_node->next;
-    delete curr_node;
-    curr_node = nullptr;
 
     // Decrement length
     this->length--;
